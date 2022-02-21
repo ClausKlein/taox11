@@ -1,0 +1,38 @@
+// -*- MPC -*-
+//
+// usage: brix11 gen build -- make
+//
+
+project(*idl): ridl_ostream_defaults {
+  idlflags += -Sp
+  IDL_Files {
+    Hello.idl
+  }
+  custom_only = 1
+}
+
+project(*Server): taox11_server {
+  after += *idl
+  Source_Files {
+    Hello.cpp
+    server.cpp
+  }
+  Source_Files {
+    HelloC.cpp
+    HelloS.cpp
+  }
+  IDL_Files {
+  }
+}
+
+project(*Client): taox11_client {
+  after += *idl
+  Source_Files {
+    client.cpp
+  }
+  Source_Files {
+    HelloC.cpp
+  }
+  IDL_Files {
+  }
+}
