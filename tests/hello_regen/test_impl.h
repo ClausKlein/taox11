@@ -38,7 +38,7 @@ namespace Test
       //@@{__RIDL_REGEN_MARKER__} - END : Test::Foo[Constructors]
 
       /// Destructor
-      virtual ~Foo ();
+      ~Foo () override;
 
       template <typename T> friend class CORBA::servant_reference;
 
@@ -84,7 +84,7 @@ namespace Test
       //@@{__RIDL_REGEN_MARKER__} - END : Test::Hello[Constructors]
 
       /// Destructor
-      virtual ~Hello ();
+      ~Hello () override;
 
       template <typename T> friend class CORBA::servant_reference;
 

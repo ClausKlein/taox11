@@ -92,6 +92,7 @@ namespace TAOX11_NAMESPACE
                        uint32_t code,
                        CORBA::CompletionStatus completed);
 
+    public:
       void _info (std::ostream& strm) const override;
 
     private:

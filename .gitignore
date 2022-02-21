@@ -79,5 +79,6 @@ tests/poa/poamanager/poamanager
 tests/poa/rootpoa/root_poa
 tests/policies/manipulation/manipulation
 tests/reactor/reactor
+output.log
 client
 server
