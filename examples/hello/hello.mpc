@@ -6,7 +6,7 @@
 project(*idl): ridl_ostream_defaults {
   idlflags += -Sp
   IDL_Files {
-    Hello.idl
+    hello.idl
   }
   custom_only = 1
 }
@@ -14,12 +14,12 @@ project(*idl): ridl_ostream_defaults {
 project(*Server): taox11_server {
   after += *idl
   Source_Files {
-    Hello.cpp
+    hello.cpp
     server.cpp
   }
   Source_Files {
-    HelloC.cpp
-    HelloS.cpp
+    helloC.cpp
+    helloS.cpp
   }
   IDL_Files {
   }
@@ -31,7 +31,7 @@ project(*Client): taox11_client {
     client.cpp
   }
   Source_Files {
-    HelloC.cpp
+    helloC.cpp
   }
   IDL_Files {
   }

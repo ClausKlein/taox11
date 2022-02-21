@@ -1,5 +1,13 @@
-#include "HelloC.h"
+/**
+ * @file    client.cpp
+ * @author  Martin Corino
+ *
+ * @brief   CORBA C++11 client application
+ *
+ * @copyright Copyright (c) Remedy IT Expertise BV
+ */
 
+#include "helloC.h"
 #include "tao/x11/log.h"
 
 // We start with a regular main that uses its commandline arguments and provides a try/catch block to make sure we catch

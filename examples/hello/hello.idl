@@ -1,3 +1,10 @@
+/**
+ * @file    hello.idl
+ * @author  Mark Drijver
+ *
+ * @copyright Copyright (c) Remedy IT Expertise BV
+ */
+
 /// Put the interfaces in a module, to avoid global namespace pollution
 module Test
 {
@@ -6,6 +13,7 @@ module Test
   {
     /// Return a simple string
     string get_string ();
+
     /// A method to shutdown the ORB
     oneway void shutdown ();
   };

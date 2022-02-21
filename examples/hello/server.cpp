@@ -1,6 +1,15 @@
-#include "Hello.h"
-#include "tao/x11/log.h"
+/**
+ * @file    server.cpp
+ * @author  Mark Drijver
+ *
+ * @brief   CORBA C++11 server application
+ *
+ * @copyright Copyright (c) Remedy IT Expertise BV
+ */
 
+#include "hello.h"
+
+#include "tao/x11/log.h"
 #include <fstream>
 
 int main (int argc, char* argv[])

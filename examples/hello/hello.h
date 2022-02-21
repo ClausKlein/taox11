@@ -1,4 +1,14 @@
-#include "HelloS.h"
+/**
+ * @file    hello.h
+ * @author  Mark Drijver
+ *
+ * @copyright Copyright (c) Remedy IT Expertise BV
+ */
+
+#ifndef HELLO_H
+#define HELLO_H
+
+#include "helloS.h"
 
 /// Implement the Test::Hello interface
 class Hello final : public virtual CORBA::servant_traits<Test::Hello>::base_type
@@ -13,3 +23,5 @@ private:
   /// Use an ORB reference to shutdown the application.
   IDL::traits<CORBA::ORB>::ref_type orb_;
 };
+
+#endif /* HELLO_H */
