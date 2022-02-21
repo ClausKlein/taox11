@@ -6,6 +6,7 @@
 # Example: examples/foo/run_test.pl: !MINIMUM !CORBA_E_COMPACT !CORBA_E_MICRO !ST
 #
 
+tests/hello/run_test.pl:
 examples/ami/run_test.pl: !CORBA_E_MICRO
 examples/ccs/run_test.pl: !CORBA_E_COMPACT !CORBA_E_MICRO
 examples/log_module/run_test.pl:

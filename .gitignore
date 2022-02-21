@@ -82,3 +82,4 @@ tests/reactor/reactor
 output.log
 client
 server
+compile_commands.json
