@@ -10,6 +10,7 @@ on:
   pull_request:
     branches:
       - master
+      - develop
       - v*
   schedule:
     - cron: '0 1 * * SUN'
@@ -31,7 +32,7 @@ env:
   RIDL_ROOT: ${{ github.workspace }}/ridl
   TAOX11_ROOT: ${{ github.workspace }}
   X11_BRANCH: AXCIOMA_v2.4.0
-  ACETAOMPC_BRANCH: ACE+TAO-7_1_0
+  ACETAOMPC_BRANCH: ACE+TAO-7_1_0 # Latest_ACE7TAO3_Micro # >= ACE+TAO-7_1_2
 
 jobs:
   build:
