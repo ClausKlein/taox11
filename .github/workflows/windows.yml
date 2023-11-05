@@ -31,8 +31,8 @@ env:
   X11_BASE_ROOT: ${{ github.workspace }}/axcioma
   RIDL_ROOT: ${{ github.workspace }}/ridl
   TAOX11_ROOT: ${{ github.workspace }}
-  X11_BRANCH: AXCIOMA_v2.4.0
-  ACETAOMPC_BRANCH: ACE+TAO-7_1_2
+  X11_BRANCH: master # AXCIOMA_v2.4.0
+  ACETAOMPC_BRANCH: Latest_ACE7TAO3_Micro # ACE+TAO-7_1_2
 
 jobs:
   build:
