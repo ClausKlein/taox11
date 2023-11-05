@@ -32,7 +32,7 @@ env:
   TAOX11_ROOT: ${{ github.workspace }}
   INSTALL_PREFIX: ${{ github.workspace }}/stage
   X11_BRANCH: AXCIOMA_v2.4.0
-  ACETAOMPC_BRANCH: ACE+TAO-7_1_0
+  ACETAOMPC_BRANCH: ACE+TAO-7_1_2
 
 jobs:
   build:
@@ -70,6 +70,7 @@ jobs:
             CXX: g++-11
             ruby: '3.0'
             PackageDeps: g++-11
+            feature: Codecov
           - os: ubuntu-22.04
             CC: gcc-12
             CXX: g++-12
@@ -80,12 +81,12 @@ jobs:
             CXX: g++-12
             ruby: '3.2'
             PackageDeps: g++-12
-          # - os: ubuntu-22.04
-          #   CC: gcc-10
-          #   CXX: g++-10
-          #   ruby: '2.7'
-          #   PackageDeps: g++-10
-          #   feature: CodeQL
+          - os: ubuntu-22.04
+            CC: gcc-11
+            CXX: g++-11
+            ruby: '3.1'
+            PackageDeps: g++-11
+            feature: CodeQL
     runs-on: ${{ matrix.os }}
     name: ${{ matrix.os }} ${{ matrix.CXX }} ruby-${{ matrix.ruby }}
     env:

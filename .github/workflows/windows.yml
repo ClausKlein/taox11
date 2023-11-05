@@ -31,19 +31,19 @@ env:
   RIDL_ROOT: ${{ github.workspace }}/ridl
   TAOX11_ROOT: ${{ github.workspace }}
   X11_BRANCH: AXCIOMA_v2.4.0
-  ACETAOMPC_BRANCH: ACE+TAO-7_1_0
+  ACETAOMPC_BRANCH: ACE+TAO-7_1_2
 
 jobs:
   build:
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
         include:
           - os: windows-2019
-            ruby: '2.6'
+            ruby: '3.0'
             project_type: vs2019
           - os: windows-2019
-            ruby: '3.0'
+            ruby: '3.1'
             project_type: vs2019
     runs-on: ${{ matrix.os }}
     name: ${{ matrix.os }} ruby-${{ matrix.ruby }} ${{ matrix.project_type }}
