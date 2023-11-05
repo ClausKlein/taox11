@@ -4,7 +4,7 @@
  *
  * @brief   Export file for the typecodefactory library
  *
- * This file is generated automatically by generate_export_file.pl TAOX11_MESSAGING
+ * This file is generated automatically by generate_export_file.pl TAOX11_TYPECODEFACTORY
  *
  * @copyright Copyright (c) Remedy IT Expertise BV
  */
