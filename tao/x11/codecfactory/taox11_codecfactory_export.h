@@ -4,7 +4,7 @@
  *
  * @brief   Export file for the CodecFactory library
  *
- * This file is generated automatically by generate_export_file.pl TAOX11_MESSAGING
+ * This file is generated automatically by generate_export_file.pl TAOX11_CODECFACTORY
  *
  * @copyright Copyright (c) Remedy IT Expertise BV
  */
