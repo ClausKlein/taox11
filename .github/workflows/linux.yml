@@ -10,6 +10,7 @@ on:
   pull_request:
     branches:
       - master
+      - develop
       - v*
   schedule:
     - cron: '0 1 * * SUN'
@@ -68,7 +69,7 @@ jobs:
           - os: ubuntu-22.04
             CC: gcc-11
             CXX: g++-11
-            ruby: '3.0'
+            ruby: '3.1'
             PackageDeps: g++-11
             feature: Codecov
           - os: ubuntu-22.04
@@ -84,7 +85,7 @@ jobs:
           - os: ubuntu-22.04
             CC: gcc-11
             CXX: g++-11
-            ruby: '3.1'
+            ruby: '3.2'
             PackageDeps: g++-11
             feature: CodeQL
     runs-on: ${{ matrix.os }}
