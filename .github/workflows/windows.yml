@@ -9,6 +9,7 @@ on:
       - AXCIOMA-v*
   pull_request:
     branches:
+      - develop
       - master
       - v*
   schedule:
@@ -40,10 +41,10 @@ jobs:
       matrix:
         include:
           - os: windows-2019
-            ruby: '3.0'
-            project_type: vs2019
-          - os: windows-2019
             ruby: '3.1'
+            project_type: vs2019
+          - os: windows-2022
+            ruby: '3.2'
             project_type: vs2019
     runs-on: ${{ matrix.os }}
     name: ${{ matrix.os }} ruby-${{ matrix.ruby }} ${{ matrix.project_type }}
@@ -94,11 +95,11 @@ jobs:
         run: |
           %X11_BASE_ROOT%/bin/brix11 env -- configure -P
         shell: cmd
-      - name: Run brix11 gen build
+      - name: Run brix11 gen build --static
         run: |
-          %X11_BASE_ROOT%/bin/brix11 gen build axcioma/workspace.mwc -- gen build %TAOX11_ROOT%/examples -- gen build %TAOX11_ROOT%/orbsvcs/tests -- gen build %TAOX11_ROOT%/tests
+          %X11_BASE_ROOT%/bin/brix11 gen build --static axcioma/workspace.mwc -- gen build --static %TAOX11_ROOT%/examples -- gen build --static %TAOX11_ROOT%/orbsvcs/tests -- gen build --static %TAOX11_ROOT%/tests
         shell: cmd
-      - name: Run brix11 make
+      - name: Run brix11 make --release
         run: |
-          %X11_BASE_ROOT%/bin/brix11 make -N -d %X11_BASE_ROOT% -- make -N -d %TAOX11_ROOT%/examples -- make -N -d %TAOX11_ROOT%/orbsvcs/tests -- make -N -d %TAOX11_ROOT%/tests
+          %X11_BASE_ROOT%/bin/brix11 make --release -N -d %X11_BASE_ROOT% -- make --release -N -d %TAOX11_ROOT%/examples -- make --release -N -d %TAOX11_ROOT%/orbsvcs/tests -- make --release -N -d %TAOX11_ROOT%/tests
         shell: cmd
