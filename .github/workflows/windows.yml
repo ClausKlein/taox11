@@ -96,9 +96,9 @@ jobs:
         run: |
           %X11_BASE_ROOT%/bin/brix11 env -- configure -P
         shell: cmd
-      - name: Run brix11 gen build
+      - name: Run brix11 gen build --static
         run: |
-          %X11_BASE_ROOT%/bin/brix11 gen build axcioma/workspace.mwc -- gen build %TAOX11_ROOT%/examples -- gen build %TAOX11_ROOT%/orbsvcs/tests -- gen build %TAOX11_ROOT%/tests
+          %X11_BASE_ROOT%/bin/brix11 gen build --static axcioma/workspace.mwc -- gen build --static %TAOX11_ROOT%/examples -- gen build --static %TAOX11_ROOT%/orbsvcs/tests -- gen build --static %TAOX11_ROOT%/tests
         shell: cmd
       - name: Run brix11 make --release
         run: |
