@@ -102,10 +102,10 @@ jobs:
       - name: Run brix11 gen build --static
         run: |
           %X11_BASE_ROOT%/bin/brix11 gen build --static axcioma/workspace.mwc
-          # -- gen build --static %TAOX11_ROOT%/examples -- gen build --static %TAOX11_ROOT%/orbsvcs/tests -- gen build --static %TAOX11_ROOT%/tests
         shell: cmd
+        # NOT yet! -- gen build --static %TAOX11_ROOT%/examples -- gen build --static %TAOX11_ROOT%/orbsvcs/tests -- gen build --static %TAOX11_ROOT%/tests
       - name: Run brix11 make --release
         run: |
           %X11_BASE_ROOT%/bin/brix11 make --release -N -p %X11_BASE_ROOT%
-          # -- make --release -N -p %TAOX11_ROOT%/examples -- make --release -N -p %TAOX11_ROOT%/orbsvcs/tests -- make --release -N -p %TAOX11_ROOT%/tests
         shell: cmd
+        # NOT yet! -- make --release -N -p %TAOX11_ROOT%/examples -- make --release -N -p %TAOX11_ROOT%/orbsvcs/tests -- make --release -N -p %TAOX11_ROOT%/tests
