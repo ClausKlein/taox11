@@ -59,14 +59,14 @@ marshal_TAOX11_NAMESPACE_CORBA_TypeCode_sequence (
   if (_bound > 0 && length > _bound)
     return false;
 
-  if (! (_strm << length))
+  if (!(_strm << length))
   {
     return false;
   }
 
   for (const _elem_type& _el : _seq)
   {
-    if (! (_strm << _el))
+    if (!(_strm << _el))
     {
       return false;
     }
@@ -85,7 +85,7 @@ demarshal_TAOX11_NAMESPACE_CORBA_TypeCode_sequence (
 
   uint32_t length {};
 
-  if (! (_strm >> length))
+  if (!(_strm >> length))
   {
     return false;
   }
@@ -97,7 +97,7 @@ demarshal_TAOX11_NAMESPACE_CORBA_TypeCode_sequence (
 
   for (_elem_type& _el : _seq)
   {
-    if (! (_strm >> _el))
+    if (!(_strm >> _el))
     {
       return false;
     }
@@ -508,8 +508,7 @@ void TAOX11_NAMESPACE::CORBA::TypeCode::Bounds::_tao_decode (TAO_InputCDR &cdr)
 
 TAOX11_NAMESPACE::CORBA::Exception *TAOX11_NAMESPACE::CORBA::TypeCode::Bounds::_tao_duplicate () const
 {
-  TAOX11_NAMESPACE::CORBA::Exception * result = nullptr;
-  ACE_NEW_NORETURN (result, Bounds (*this));
+  TAOX11_NAMESPACE::CORBA::Exception * result = new (std::nothrow) Bounds (*this);
   if (!result)
     throw TAO_CORBA::NO_MEMORY ();
   return result;
@@ -544,8 +543,7 @@ void TAOX11_NAMESPACE::CORBA::TypeCode::BadKind::_tao_decode (TAO_InputCDR &cdr)
 
 TAOX11_NAMESPACE::CORBA::Exception *TAOX11_NAMESPACE::CORBA::TypeCode::BadKind::_tao_duplicate () const
 {
-  TAOX11_NAMESPACE::CORBA::Exception * result = nullptr;
-  ACE_NEW_NORETURN (result, BadKind (*this));
+  TAOX11_NAMESPACE::CORBA::Exception * result = new (std::nothrow) BadKind (*this);
   if (!result)
     throw TAO_CORBA::NO_MEMORY ();
   return result;

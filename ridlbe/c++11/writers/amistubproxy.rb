@@ -225,13 +225,22 @@ module IDL
         add_include('tao/x11/basic_argument_t.h')
       end
 
+      def visit_bitmask(_node)
+        add_include('tao/x11/basic_argument_t.h')
+      end
+
+      def visit_bitset(_node)
+        add_include('tao/x11/basic_argument_t.h')
+      end
+
       def visit_typedef(node)
         return if node.is_local?
 
         idl_type = node.idltype.resolved_type
         case idl_type
         when IDL::Type::Sequence,
-             IDL::Type::Array
+             IDL::Type::Array,
+             IDL::Type::Map
           check_idl_type(idl_type)
         end
       end
@@ -249,7 +258,9 @@ module IDL
              IDL::Type::Double,
              IDL::Type::Float,
              IDL::Type::Void
-        when IDL::Type::Enum
+        when IDL::Type::Enum,
+             IDL::Type::BitMask
+             IDL::Type::BitSet
           add_include('tao/x11/basic_argument_t.h')
         when IDL::Type::String
         when IDL::Type::WString
@@ -263,6 +274,9 @@ module IDL
              IDL::AST::Valuebox
           add_include('tao/x11/basic_argument_t.h')
         when IDL::Type::Sequence
+          add_include('tao/x11/basic_argument_t.h')
+          check_idl_type(idl_type.basetype)
+        when IDL::Type::Map
           add_include('tao/x11/basic_argument_t.h')
           check_idl_type(idl_type.basetype)
         when IDL::Type::Array

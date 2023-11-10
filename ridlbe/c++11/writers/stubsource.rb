@@ -310,6 +310,20 @@ module IDL
         add_post_include('tao/x11/anytypecode/any_basic_impl_t.h') if generate_anyops?
       end
 
+      def visit_bitmask(_node)
+        if generate_typecodes?
+          add_pre_include('tao/AnyTypeCode/Enum_TypeCode_Static.h')
+        end
+        add_post_include('tao/x11/anytypecode/any_basic_impl_t.h') if generate_anyops?
+      end
+
+      def visit_bitset(_node)
+        if generate_typecodes?
+          add_pre_include('tao/AnyTypeCode/Enum_TypeCode_Static.h')
+        end
+        add_post_include('tao/x11/anytypecode/any_basic_impl_t.h') if generate_anyops?
+      end
+
       def visit_typedef(node)
         return if node.idltype.resolved_type.is_a?(IDL::Type::Native)
 
@@ -325,6 +339,12 @@ module IDL
               add_pre_include('tao/AnyTypeCode/String_TypeCode_Static.h')
             when IDL::Type::Sequence,
                  IDL::Type::Array
+              add_pre_include('tao/AnyTypeCode/Sequence_TypeCode_Static.h')
+              unless node.is_local?
+                check_idl_type(idl_type)
+                check_idl_type(idl_type.basetype)
+              end
+            when IDL::Type::Map
               add_pre_include('tao/AnyTypeCode/Sequence_TypeCode_Static.h')
               unless node.is_local?
                 check_idl_type(idl_type)
@@ -362,6 +382,10 @@ module IDL
         when IDL::Type::Sequence
           # arg template included in P.h
           check_idl_type(idl_type.basetype)
+        when IDL::Type::Map
+          # arg template included in P.h
+          check_idl_type(idl_type.keytype)
+          check_idl_type(idl_type.valuetype)
         when IDL::Type::Array
           # arg template included in P.h
           check_idl_type(idl_type.basetype)
@@ -427,21 +451,14 @@ module IDL
       def pre_visit(_parser)
         println
         printiln('// generated from StubSourceObjTraitsWriter#pre_visit')
-        printiln('namespace TAOX11_NAMESPACE')
-        printiln('{')
-        inc_nest
-        println
-        printiln('namespace CORBA')
+        printiln('namespace TAOX11_NAMESPACE::CORBA')
         printiln('{')
         inc_nest
       end
 
       def post_visit(_parser)
         dec_nest
-        printiln('} // namespace CORBA')
-        println
-        dec_nest
-        printiln('} // namespace TAOX11_NAMESPACE')
+        printiln('} // namespace TAOX11_NAMESPACE::CORBA')
       end
 
       def enter_interface(node)
@@ -541,6 +558,18 @@ module IDL
         visitor(EnumVisitor).visit_cdr(node)
       end
 
+      def visit_bitmask(node)
+        return if params[:no_cdr_streaming]
+
+        visitor(BitmaskVisitor).visit_cdr(node)
+      end
+
+      def visit_bitset(node)
+        return if params[:no_cdr_streaming]
+
+        visitor(BitsetVisitor).visit_cdr(node)
+      end
+
       def visit_typedef(node)
         return if node.is_local? || params[:no_cdr_streaming]
         # nothing to do if this is just an alias for another defined type
@@ -563,21 +592,15 @@ module IDL
         super
         println
         printiln('// generated from StubSourceAnyOpWriter#pre_visit')
-        println('namespace TAOX11_NAMESPACE')
+        println('namespace TAOX11_NAMESPACE::CORBA')
         println('{')
-        inc_nest
-        println('  namespace CORBA')
-        println('  {')
         inc_nest
       end
 
       def post_visit(parser)
         dec_nest
         println
-        println('  } // namespace CORBA')
-        dec_nest
-        println
-        println('} // namespace TAOX11_NAMESPACE')
+        println('  } // namespace TAOX11_NAMESPACE::CORBA')
         super
       end
 
@@ -607,6 +630,14 @@ module IDL
 
       def visit_enum(node)
         visitor(EnumVisitor).visit_anyop(node)
+      end
+
+      def visit_bitmask(node)
+        visitor(BitmaskVisitor).visit_anyop(node)
+      end
+
+      def visit_bitset(node)
+        visitor(BitsetVisitor).visit_anyop(node)
       end
 
       def visit_typedef(node)
@@ -658,6 +689,14 @@ module IDL
 
       def visit_enum(node)
         visitor(EnumVisitor).visit_typecode(node)
+      end
+
+      def visit_bitmask(node)
+        visitor(BitmaskVisitor).visit_typecode(node)
+      end
+
+      def visit_bitset(node)
+        visitor(BitsetVisitor).visit_typecode(node)
       end
 
       def visit_typedef(node)
@@ -766,6 +805,14 @@ module IDL
         visitor(EnumVisitor).visit_tao_typecode(node)
       end
 
+      def visit_bitmask(node)
+        visitor(BitmaskVisitor).visit_tao_typecode(node)
+      end
+
+      def visit_bitset(node)
+        visitor(BitsetVisitor).visit_tao_typecode(node)
+      end
+
       def visit_typedef(node)
         return if node.idltype.resolved_type.is_a?(IDL::Type::Native)
 
@@ -779,6 +826,8 @@ module IDL
             visitor(StringVisitor).visit_tao_typecode(node)
           when IDL::Type::Sequence
             visitor(SequenceVisitor).visit_tao_typecode(node)
+          when IDL::Type::Map
+            visitor(MapVisitor).visit_tao_typecode(node)
           when IDL::Type::Array
             visitor(ArrayVisitor).visit_tao_typecode(node)
           end

@@ -198,6 +198,14 @@ module IDL
         add_include('tao/x11/basic_argument_t.h')
       end
 
+      def visit_bitmask(_node)
+        add_include('tao/x11/basic_argument_t.h')
+      end
+
+      def visit_bitset(_node)
+        add_include('tao/x11/basic_argument_t.h')
+      end
+
       def visit_typedef(node)
         return if node.is_local?
 
@@ -205,6 +213,9 @@ module IDL
         case idl_type
         when IDL::Type::Sequence
           add_include('tao/x11/sequence_cdr_t.h') unless params[:no_cdr_streaming]
+          check_idl_type(idl_type)
+        when IDL::Type::Map
+          add_include('tao/x11/map_cdr_t.h') unless params[:no_cdr_streaming]
           check_idl_type(idl_type)
         when IDL::Type::Array
           add_include('tao/x11/array_cdr_t.h') unless params[:no_cdr_streaming]
@@ -232,6 +243,10 @@ module IDL
         when IDL::Type::Sequence
           add_include('tao/x11/basic_argument_t.h')
           check_idl_type(idl_type.basetype)
+        when IDL::Type::Map
+          add_include('tao/x11/basic_argument_t.h')
+          check_idl_type(idl_type.keytype)
+          check_idl_type(idl_type.valuetype)
         when IDL::Type::Array
           add_include('tao/x11/basic_argument_t.h')
           check_idl_type(idl_type.basetype)
@@ -316,6 +331,18 @@ module IDL
         visitor(EnumVisitor).visit_cdr(node)
       end
 
+      def visit_bitmask(node)
+        return if params[:no_cdr_streaming]
+
+        visitor(BitmaskVisitor).visit_cdr(node)
+      end
+
+      def visit_bitset(node)
+        return if params[:no_cdr_streaming]
+
+        visitor(BitsetVisitor).visit_cdr(node)
+      end
+
       def visit_typedef(node)
         return if node.is_local? || params[:no_cdr_streaming]
         # nothing to do if this is just an alias for another defined type
@@ -325,6 +352,8 @@ module IDL
         case idl_type
         when IDL::Type::Sequence
           visitor(SequenceVisitor).visit_cdr(node)
+        when IDL::Type::Map
+          visitor(MapVisitor).visit_cdr(node)
         when IDL::Type::Array
           visitor(ArrayVisitor).visit_cdr(node)
         when IDL::Type::String, IDL::Type::WString
@@ -507,6 +536,14 @@ module IDL
 
       def visit_enum(node)
         visitor(EnumVisitor).visit_typecode(node)
+      end
+
+      def visit_bitmask(node)
+        visitor(BitmaskVisitor).visit_typecode(node)
+      end
+
+      def visit_bitset(node)
+        visitor(BitsetVisitor).visit_typecode(node)
       end
 
       def visit_typedef(node)

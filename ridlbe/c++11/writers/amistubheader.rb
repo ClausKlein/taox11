@@ -305,7 +305,8 @@ module IDL
         idl_type = node.idltype.resolved_type
         case idl_type
         when IDL::Type::Sequence,
-             IDL::Type::Array
+             IDL::Type::Array,
+             IDL::Type::Map
           check_idl_type(idl_type.basetype)
         when IDL::Type::String,
              IDL::Type::WString
@@ -339,19 +340,14 @@ module IDL
       def pre_visit(_parser)
         println
         printiln('// generated from AmiStubHeaderTraitsWriter#pre_visit')
-        printiln('namespace TAOX11_NAMESPACE')
-        printiln('{')
-        inc_nest
-        printiln('namespace IDL')
+        printiln('namespace TAOX11_NAMESPACE::IDL')
         printiln('{')
         inc_nest
       end
 
       def post_visit(_parser)
         dec_nest
-        printiln('} // namespace IDL')
-        dec_nest
-        printiln('} // namespace TAOX11_NAMESPACE')
+        printiln('} // namespace TAOX11_NAMESPACE::IDL')
       end
 
       def enter_interface(node)
@@ -373,21 +369,15 @@ module IDL
         super
         println
         printiln('// generated from AmiStubHeaderAnyOpWriter#pre_visit')
-        println('namespace TAOX11_NAMESPACE')
+        println('namespace TAOX11_NAMESPACE::CORBA')
         println('{')
-        inc_nest
-        println('  namespace CORBA')
-        println('  {')
         inc_nest
       end
 
       def post_visit(parser)
         dec_nest
         println
-        println('  } // namespace CORBA')
-        dec_nest
-        println
-        println('} // namespace TAOX11_NAMESPACE')
+        println('  } // namespace TAOX11_NAMESPACE::CORBA')
         super
       end
 
@@ -521,14 +511,14 @@ module IDL
       def pre_visit(_parser)
         println
         printiln('// generated from AmiStubHeaderAmicTraitsWriter#pre_visit')
-        printiln('namespace TAOX11_NAMESPACE')
+        printiln('namespace TAOX11_NAMESPACE::IDL')
         printiln('{')
         inc_nest
       end
 
       def post_visit(_parser)
         dec_nest
-        printiln('} // namespace TAOX11_NAMESPACE')
+        printiln('} // namespace TAOX11_NAMESPACE::IDL')
       end
 
       def enter_interface(node)
@@ -615,17 +605,13 @@ module IDL
       def pre_visit(_parser)
         println
         printiln('// generated from AmiStubHeaderSrvTraitsWriter#pre_visit')
-        printiln('namespace TAOX11_NAMESPACE {')
-        inc_nest
-        printiln('namespace CORBA {')
+        printiln('namespace TAOX11_NAMESPACE::CORBA {')
         inc_nest
       end
 
       def post_visit(_parser)
         dec_nest
-        printiln('} // namespace CORBA')
-        dec_nest
-        printiln('} // namespace TAOX11_NAMESPACE')
+        printiln('} // namespace TAOX11_NAMESPACE::CORBA')
       end
 
       def enter_interface(node)

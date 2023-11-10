@@ -218,7 +218,7 @@ namespace TAOX11_NAMESPACE
       using _traits_type = IDL::traits<Policy>;
       using _ref_type = _traits_type::ref_type;
 
-      virtual const std::string& _interface_repository_id () const;
+      std::string _interface_repository_id () const override;
 
       // generated from c++/cli_hdr/attribute.erb
       virtual TAOX11_CORBA::PolicyType policy_type();
@@ -234,7 +234,7 @@ namespace TAOX11_NAMESPACE
 
     protected:
       template <typename _Tp1, typename, typename ...Args>
-      friend object_reference<_Tp1> make_reference(Args&& ...args);
+      friend constexpr object_reference<_Tp1> make_reference(Args&& ...args);
 
       Policy ();
       explicit Policy (TAOX11_NAMESPACE::Object_proxy_ptr op);

@@ -4,12 +4,14 @@ on:
   push:
     branches:
       - master
+      - develop
       - v*
     tags:
       - AXCIOMA-v*
   pull_request:
     branches:
       - master
+      - develop
       - v*
   schedule:
     - cron: '0 1 * * SUN'
@@ -30,7 +32,7 @@ env:
   X11_BASE_ROOT: ${{ github.workspace }}/axcioma
   RIDL_ROOT: ${{ github.workspace }}/ridl
   TAOX11_ROOT: ${{ github.workspace }}
-  X11_BRANCH: AXCIOMA_v2.4.0
+  X11_BRANCH: AXCIOMA_v2.5.0
   ACETAOMPC_BRANCH: ACE+TAO-7_1_0
 
 jobs:
@@ -94,11 +96,11 @@ jobs:
         run: |
           %X11_BASE_ROOT%/bin/brix11 env -- configure -P
         shell: cmd
-      - name: Run brix11 gen build
+      - name: Run brix11 gen build --static
         run: |
-          %X11_BASE_ROOT%/bin/brix11 gen build axcioma/workspace.mwc -- gen build %TAOX11_ROOT%/examples -- gen build %TAOX11_ROOT%/orbsvcs/tests -- gen build %TAOX11_ROOT%/tests
+          %X11_BASE_ROOT%/bin/brix11 gen build --static axcioma/workspace.mwc -- gen build --static %TAOX11_ROOT%/examples -- gen build --static %TAOX11_ROOT%/orbsvcs/tests -- gen build --static %TAOX11_ROOT%/tests
         shell: cmd
       - name: Run brix11 make
         run: |
-          %X11_BASE_ROOT%/bin/brix11 make -N -d %X11_BASE_ROOT% -- make -N -d %TAOX11_ROOT%/examples -- make -N -d %TAOX11_ROOT%/orbsvcs/tests -- make -N -d %TAOX11_ROOT%/tests
+          %X11_BASE_ROOT%/bin/brix11 make -N -p %X11_BASE_ROOT% -- make -N -p %TAOX11_ROOT%/examples -- make -N -p %TAOX11_ROOT%/orbsvcs/tests -- make -N -d %TAOX11_ROOT%/tests
         shell: cmd

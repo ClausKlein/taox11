@@ -44,7 +44,7 @@ module IDL
 
       def dec_nest(in_ = 1)
         @nest -= in_
-        @nest = 0 if @nest < 0
+        @nest = 0 if @nest.negative?
       end
 
       def write_regen_section(sectionid, options = nil, proc = nil)
@@ -529,6 +529,14 @@ module IDL
       def visit_enum(node); end
 
       def visit_enumerator(node); end
+
+      def visit_bitset(node); end
+
+      def visit_bitfield(node); end
+
+      def visit_bitmask(node); end
+
+      def visit_bitvalue(node); end
 
       def visit_typedef(node); end
     end # CodeWriterMethods
